@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website to apk</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: rgb(214, 243, 236);
+        }
+        .area{
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 10px;
+            padding-left: 25px;
+        }
+        .text_color{
+            color: green;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .t_color{
+            color: red;
+        }
+        .header_text{
+            text-align: center;
+            width: 100%;
+            background-color: rgb(3, 109, 35);
+            color: white;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        footer{
+            width: 100%;
+            background-color: rgb(3, 109, 35);
+            color: rgb(185, 185, 185);
+            text-align: center;
+        }
+        footer p{
+            padding: 2px 0;
+        }
+        .move_right{
+            margin-left: 50px;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <div class="area">
+        <h1 class="header_text">Website To APK with SwipeRefresh</h1>
+
+
+        <ol>
+            <li class="text_color">Create New Empty Project</li><br>
+            <li>Gradle Script --> build.gradle(Module:.....app)</li>
+                <ul class="move_right">
+                 <li><b>dependencies {<br><b class="text_color">implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"</b><br>}</b></li>
+                </ul><br><br>
+            <li>App --> manifestes --> AnroidManifest.xml </li>
+                <ul class="move_right">
+                 <li>After Package Line [3] write or past this line</li>
+                 <li class="text_color">&lt;uses-permission  android:name="android.permission.INTERNET"&gt; &lt;/uses-permission&gt;</li>
+                </ul><br><br>
+            <li><b>Activity_main.xml</b></li>
+                <ul class="move_right">
+                    <li>Change Layout => <b class="text_color">swiperefreshlayout</b></li>
+                    <li>Add ID => <b class="text_color">android:id="@+id/reload"</b></li>
+                    <li class="t_color">Remove TextView</li>
+
+                    <li>Add webview with ID => <b class="text_color"> &lt;WebView<br>
+                        android:id="@+id/webview"<br>
+                        android:layout_width="match_parent"<br>
+                        android:layout_height="match_parent"/&gt;</b></li>
+                </ul><br><br>
+            <li><b>App --> res --> values --> themes --> themes.xml </b></li>
+                    <ul class="move_right">
+                        <li><b class="t_color"><u>DarkActionBar</u></b> => <b class="text_color">NoActionBar</b></li> 
+                    </ul><br><br>
+            <li><b>MainActivity.java</b> </li>
+                    <ul class="move_right">
+                        <li>Click (...) dot and undernith Boundle write/past codes</li>
+                        <li class="text_color">import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;<br>
+                            import android.graphics.Bitmap;<br>
+                            import android.webkit.WebSettings;<br>
+                            import android.webkit.WebView;<br>
+                            import android.webkit.WebViewClient;<br>
+                            import android.widget.Toast;</li><br>
+                        <li>undernith --> public class MainActivity extends AppCompatActivity {</li>
+                        <li class="text_color">private WebView mywebView;<br>
+                                SwipeRefreshLayout swipeRefreshLayout;</li><br>
+                        <li>@override --> <b>setContentView(R.layout.activity_main);</b></li>
+                        <li class="text_color">mywebView=(WebView) findViewById(R.id.webview);<br>
+                            mywebView.setWebViewClient(new WebViewClient());<br>
+                            mywebView.loadUrl("<span class="t_color">https://lrjamil.com/</span>");<br>
+                            WebSettings webSettings=mywebView.getSettings();<br>
+                            webSettings.setJavaScriptEnabled(true);<br><br>
+                        
+                        
+                        
+                        
+                            swipeRefreshLayout = findViewById(R.id.reload);<br>
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {<br>
+            @Override<br>
+            public void onRefresh() {<br>
+                mywebView.reload();<br>
+                swipeRefreshLayout.setRefreshing(false);<br>
+            }<br>
+        });<br>
+                        </li><br>
+                        <li><sup>}</sup><sub>}</sub> Middle line weite the codes</li>
+                        <li class="text_color">
+                            public class mywebClient extends WebViewClient{<br>
+                                @Override<br>
+                                public void onPageStarted(WebView view, String url, Bitmap favicon){<br>
+                                    super.onPageStarted(view,url,favicon);<br>
+                                }<br>
+                                @Override<br>
+                                public boolean shouldOverrideUrlLoading(WebView view,String url){<br>
+                                    view.loadUrl(url);<br>
+                                    return true;<br>
+                                }<br>
+                            }<br>
+                            @Override<br>
+                            public void onBackPressed(){<br>
+                                if(mywebView.canGoBack()) {<br>
+                                    mywebView.goBack();<br>
+                                }<br>
+                                else{<br>
+                                    super.onBackPressed();<br>
+                                }<br>
+                            }<br>
+                        </li>
+                    </ul><br><br>
+
+
+    
+                
+
+
+
+        </ol>
+        <footer><p>&copy; Jamil Lab LTD</p></footer>
+
+    </div>
+    
+
+</body>
+</html>
